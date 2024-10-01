@@ -89,7 +89,7 @@ public class Boid : MonoBehaviour
             Vector2 vectorToBoid = transform.position - otherBoid.transform.position;
             //Debug.Log(vectorToBoid);
             Vector2 force = vectorToBoid.normalized * (1 / vectorToBoid.magnitude);
-            Debug.Log(force);
+            //Debug.Log(force);
             return force;
         }
         else

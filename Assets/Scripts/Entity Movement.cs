@@ -28,9 +28,9 @@ public class EntityMovement : MonoBehaviour
     void Awake()
     {
         //setting initial force
-        hitsBufferObstacles = new Collider2D[maxObstaclesDetected];
-
+        initialForce = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f));
         rb.AddForce(initialForce, ForceMode2D.Impulse);
+        hitsBufferObstacles = new Collider2D[maxObstaclesDetected];  
     }
 
     // Update is called once per frame
