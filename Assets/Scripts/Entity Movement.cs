@@ -6,21 +6,20 @@ public class EntityMovement : MonoBehaviour
 {
     [Header("Entity References")]
     [SerializeField] private Rigidbody2D rb; //rigidbody of the enity
-    //[SerializeField] private Boid boid;
 
-    [Header("Object Detection")]
+    [Header("Obstacle Handling")]
     [SerializeField] private float obstacleDetectionRadius; //the distance that is checked for the presence of obstacles
     [SerializeField] private float obstacleRepulsionStrength; //strength of obstacle repulsion
     [SerializeField] private int maxObstaclesDetected; //max number of obstacles that can be detected
     [SerializeField] private LayerMask obstaclesLayer; //the layer on which obstacles are found
     private Collider2D[] hitsBufferObstacles; //array which contains obstacles that are detected
 
-    [Header("Player Movement Variables")]
+    [Header("Entity Movement Variables")]
     [SerializeField] private float rotationSpeed; //speed with which the entity will rotate
     [SerializeField] private float forwardForce; //propelling force to make individual Entity move forward
-    [SerializeField] private float noiseStrength; //force with which noise is applied
     [SerializeField] private float noiseRange; //direction range of the noise
     [SerializeField] private float noiseChance; //chance that noise will be added to movement
+    [SerializeField] private float maxSpeed;
 
     [Header("Starting Varaibles")]
     [SerializeField] private Vector2 initialForce; //initial force that is added on the first frame
@@ -37,18 +36,19 @@ public class EntityMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        AvoidObstales();
+        ApplyForces();
         RotateToFaceMovement();
-        MoveForward();
-        if (Random.Range(0f,100f) <= noiseChance)
-        {
-            AddNoise();
-        }
     }
 
     public void ApplyForces()
     {
-
+        AvoidObstales();
+        MoveForward();
+        if (Random.Range(0f, 100f) <= noiseChance)
+        {
+            AddNoise();
+        }
+        CapSpeed();
     }
 
     private void AvoidObstales()
@@ -84,7 +84,15 @@ public class EntityMovement : MonoBehaviour
     private void AddNoise()
     {
         float randomRotationAngle = Random.Range(-noiseRange/2, noiseRange/2);
-        Vector2 direction = Quaternion.AngleAxis(randomRotationAngle, Vector3.forward) * rb.velocity.normalized * noiseStrength;
+        Vector2 direction = Quaternion.AngleAxis(randomRotationAngle, Vector3.forward) * rb.velocity.normalized;
         rb.velocity = direction.normalized * rb.velocity.magnitude;
+    }
+
+    private void CapSpeed()
+    {
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
     }
 }
