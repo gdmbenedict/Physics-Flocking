@@ -3433,10 +3433,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rotationSpeed: 180
-  forwardForce: 0.1
+  forwardForce: 2
   noiseStrength: 3
   noiseRange: 90
-  noiseChance: 15
+  noiseChance: 1
   initialForce: {x: 0, y: 1}
 --- !u!60 &2123178294
 PolygonCollider2D:

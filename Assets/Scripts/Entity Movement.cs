@@ -40,7 +40,7 @@ public class EntityMovement : MonoBehaviour
         AvoidObstales();
         RotateToFaceMovement();
         MoveForward();
-        if (Random.Range(0f,100f) > noiseChance)
+        if (Random.Range(0f,100f) <= noiseChance)
         {
             AddNoise();
         }
@@ -84,7 +84,7 @@ public class EntityMovement : MonoBehaviour
     private void AddNoise()
     {
         float randomRotationAngle = Random.Range(-noiseRange/2, noiseRange/2);
-        Vector2 force = Quaternion.AngleAxis(randomRotationAngle, Vector3.forward) * rb.velocity.normalized * noiseStrength;
-        rb.AddForce(force);
+        Vector2 direction = Quaternion.AngleAxis(randomRotationAngle, Vector3.forward) * rb.velocity.normalized * noiseStrength;
+        rb.velocity = direction.normalized * rb.velocity.magnitude;
     }
 }
