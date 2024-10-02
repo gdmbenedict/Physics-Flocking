@@ -25,11 +25,6 @@ public class Boid : MonoBehaviour
         hitsBufferBoids = new Collider2D[maxBoidsDetected]; 
     }
 
-    private void FixedUpdate()
-    {
-        BoidsBehaviour();
-    }
-
     public void BoidsBehaviour()
     {
         //initializing temp vectors for data storage

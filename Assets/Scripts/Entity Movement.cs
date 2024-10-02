@@ -36,7 +36,6 @@ public class EntityMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        ApplyForces();
         RotateToFaceMovement();
     }
 
