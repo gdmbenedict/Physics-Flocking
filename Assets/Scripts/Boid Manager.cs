@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 public class BoidManager : MonoBehaviour
@@ -59,6 +60,25 @@ public class BoidManager : MonoBehaviour
         list1 = !list1;
     }
 
+    //Function to change number of boids to a specified amount
+    public void ChangeNumberOfBoids(int newNumBoids)
+    {
+        if (numBoids < newNumBoids)
+        {
+            StartCoroutine(SpawnBoids(newNumBoids - numBoids));
+        }
+        else if (numBoids > newNumBoids)
+        {
+            StartCoroutine(RemoveBoids(numBoids - newNumBoids));
+        }
+        else
+        {
+            return;
+        }
+
+        numBoids = newNumBoids;
+    }
+
     //Function to spawn boids as a background operation
     private IEnumerator SpawnBoids(int numToSpawn)
     {
@@ -68,6 +88,7 @@ public class BoidManager : MonoBehaviour
             bool spawned = false;
             Vector2 position;
 
+            //loop through operation until spawned
             while (!spawned)
             {
                 //generate random spawning location
@@ -100,4 +121,159 @@ public class BoidManager : MonoBehaviour
             yield return null;
         } 
     }
+
+    //Function to remove boids as a background process
+    private IEnumerator RemoveBoids(int numToRemove)
+    {
+        for (int i=0; i<numToRemove; i++)
+        {
+            if (list1)
+            {
+                GameObject boid = boidList1[0].gameObject;
+                boidList1.Remove(boidList1[0]);
+                entityList1.Remove(entityList1[0]);
+                Destroy(boid);
+            }
+            else
+            {
+                GameObject boid = boidList2[0].gameObject;
+                boidList1.Remove(boidList2[0]);
+                entityList1.Remove(entityList2[0]);
+                Destroy(boid);
+            }
+
+            yield return null;
+        }
+    }
+
+    //Function to start co-routine for obstacle detection range removal
+    public void ChangeObstacleDetectionRange(float newRange)
+    {
+        StartCoroutine(ModifyObstacleDetectionRange(newRange));
+    }
+
+    //Function that changes the obstacles detection range as a background process
+    private IEnumerator ModifyObstacleDetectionRange(float newRange)
+    {
+        int total = entityList1.Count + entityList2.Count;
+
+        for (int i=0; i<total; i++)
+        {
+            if (list1)
+            {
+                entityList1[i / 2].ModifyObstacleDetectionRadius(newRange);
+            }
+            else
+            {
+                entityList1[i / 2].ModifyObstacleDetectionRadius(newRange);
+            }
+
+            yield return null;
+        }
+    }
+
+    //Function to start co-routine for obstacle repulsion force removal
+    public void ChangeObstacleRepulsionForce(float newForce)
+    {
+        StartCoroutine(ModifyObstacleRepulsionForce(newForce));
+    }
+
+    //Function that changes the obstacles repulsion strength as a background process
+    private IEnumerator ModifyObstacleRepulsionForce(float newForce)
+    {
+        int total = entityList1.Count + entityList2.Count;
+
+        for (int i = 0; i < total; i++)
+        {
+            if (list1)
+            {
+                entityList1[i / 2].ModifyObstacleDetectionRadius(newForce);
+            }
+            else
+            {
+                entityList1[i / 2].ModifyObstacleDetectionRadius(newForce);
+            }
+
+            yield return null;
+        }
+    }
+
+    //Function to start co-routine for obstacle repulsion force removal
+    public void ChangeForwardForce(float newForce)
+    {
+        StartCoroutine(ModifyForwardForce(newForce));
+    }
+
+    //Function that changes the obstacles repulsion strength as a background process
+    private IEnumerator ModifyForwardForce(float newForce)
+    {
+        int total = entityList1.Count + entityList2.Count;
+
+        for (int i = 0; i < total; i++)
+        {
+            if (list1)
+            {
+                entityList1[i / 2].ModifyForwardForce(newForce);
+            }
+            else
+            {
+                entityList1[i / 2].ModifyForwardForce(newForce);
+            }
+
+            yield return null;
+        }
+    }
+
+    //Function that starts the coroutine to chance noise chance
+    public void ChangeNoiseChance(float noiseChance)
+    {
+        StartCoroutine(ModifyNoiseChance(noiseChance));
+    }
+
+    //Function that modifies the chance of noise on all boids as a background process
+    private IEnumerator ModifyNoiseChance(float newChance)
+    {
+        int total = entityList1.Count + entityList2.Count;
+
+        for (int i = 0; i < total; i++)
+        {
+            if (list1)
+            {
+                entityList1[i / 2].ModifyNoiseChance(newChance);
+            }
+            else
+            {
+                entityList1[i / 2].ModifyNoiseChance(newChance);
+            }
+
+            yield return null;
+        }
+    }
+
+    public void ChangeMaxSpeed(float newSpeed)
+    {
+        StartCoroutine(ModifyMaxSpeed(newSpeed));
+    }
+
+    //Function that modifies the chance of noise on all boids as a background process
+    private IEnumerator ModifyMaxSpeed(float newSpeed)
+    {
+        int total = entityList1.Count + entityList2.Count;
+
+        for (int i = 0; i < total; i++)
+        {
+            if (list1)
+            {
+                entityList1[i / 2].ModifyNoiseChance(newSpeed);
+            }
+            else
+            {
+                entityList1[i / 2].ModifyNoiseChance(newSpeed);
+            }
+
+            yield return null;
+        }
+    }
+
+
 }

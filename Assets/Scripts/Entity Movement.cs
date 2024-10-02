@@ -94,4 +94,29 @@ public class EntityMovement : MonoBehaviour
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
+
+    public void ModifyObstacleDetectionRadius(float newRange)
+    {
+        obstacleDetectionRadius = newRange;
+    }
+
+    public void ModifyObstacleRepulsion(float newForce)
+    {
+        obstacleRepulsionStrength = newForce;
+    }
+
+    public void ModifyForwardForce(float newForce)
+    {
+        forwardForce = newForce;
+    }
+
+    public void ModifyNoiseChance(float newChance)
+    {
+        noiseChance = newChance;
+    }
+
+    public void ModifyMaxSpeed(float newSpeed)
+    {
+        maxSpeed = newSpeed;
+    }
 }

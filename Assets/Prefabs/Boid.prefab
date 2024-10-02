@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1266036621258365267}
   obstacleDetectionRadius: 1.5
-  obstacleRepulsionStrength: 5
+  obstacleRepulsionStrength: 10
   maxObstaclesDetected: 5
   obstaclesLayer:
     serializedVersion: 2
@@ -206,7 +206,7 @@ MonoBehaviour:
   boidsLayer:
     serializedVersion: 2
     m_Bits: 512
-  boidSeperationStrength: 5
+  boidSeperationStrength: 10
   boidAlignmentStrength: 1
   boidCohesionStrength: 0.5
   forceCutOff: 0.01
